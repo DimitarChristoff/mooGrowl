@@ -1,0 +1,26 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>mooGrowl Demo Page</title>
+    <meta name="description" content="Use Growl-style notifications in good browsers.">
+    <meta name="author" content="Dimitar Christoff">
+
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="stylesheet" href="../Source/css/mooGrowl.css">
+    <link class="stylesheet" rel="stylesheet" href="https://raw.github.com/necolas/normalize.css/master/normalize.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/mootools/1.4.1/mootools-yui-compressed.js"></script>
+    <script type="text/javascript" src="../Source/js/mooGrowl.js" defer="defer"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    window.addEvent("domready", function() {
+        var growl = new mooGrowl();
+        growl.notify("this scrolls away", "test - hello there");
+        growl.notify("this stays on", "hello there", "Red");
+    });
+</script>
+</body>
+</html>
