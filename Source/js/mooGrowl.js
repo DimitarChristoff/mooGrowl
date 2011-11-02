@@ -217,7 +217,9 @@ provides: [mooGrowl]
                 onComplete: function() {
                     this.removeEvents("complete");
                     self.fireEvent("close", this.element);
-                    this.element.destroy();
+                    (function() {
+                        this.element.destroy();
+                    }).delay(500, this);
                 }
             }).morph(obj);
         },
