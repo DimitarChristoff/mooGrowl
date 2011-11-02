@@ -1,7 +1,8 @@
 mooGrowl
 ========
 
-A MooTools 1.4 Growl-style notifications with CSS3 transitions. Default styling uses
+A MooTools 1.4 Growl-style notifications with CSS3 transitions. Default styling uses:
+
  - gradients
  - border-radius
  - transition: scale
