@@ -21,6 +21,8 @@
             position: "left"
         });
 
+        var growlRight = new mooGrowl();
+
         growl.notify({
             title: "this is a critical growl",
             text: "hello there. this will also go away automatically",
@@ -41,7 +43,22 @@
 
         growl.notify({
             text: "This has no title, 2 second delay and goes away automatically",
+            delay: 1000
+        });
+
+        // right side ones.
+        growlRight.notify({
+            title: "this scrolls away",
+            text: "test - hello there. mouseover to pause away action",
             delay: 2000
+        });
+
+        growlRight.notify({
+            title: "this is a sticky critical growl",
+            text: "hello there. this growl goes away on click only",
+            className: "Red",
+            sticky: true,
+            delay: 3000
         });
 
     });
