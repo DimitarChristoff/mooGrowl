@@ -48,7 +48,7 @@ div.growlWrap.Red {
     width: 205px;
 }
 
-div.growlWrap.Red:before {
+div.growlWrap.sticky:before {
     content: url(../img/NeedleLeftYellow.png);
     width: 24px;
     height: 24px;

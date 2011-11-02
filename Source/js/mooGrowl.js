@@ -172,7 +172,12 @@
             }).morph(obj);
 
             if (sticky) {
-                el.setStyle("cursor", "pointer").set("title", "click to dismiss");
+                el.set({
+                    styles: {
+                        cursor: "pointer"
+                    },
+                    title: "click to dismiss"
+                }).addClass("sticky");
 
             }
         },

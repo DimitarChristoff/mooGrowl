@@ -17,7 +17,9 @@
 
 <script type="text/javascript">
     window.addEvent("domready", function() {
-        var growl = new mooGrowl();
+        var growl = new mooGrowl({
+            position: "left"
+        });
 
         growl.notify({
             title: "this is a critical growl",
