@@ -1,8 +1,23 @@
 /*
+---
+name: mooGrowl
+description: a MooTools 1.4 growl style notifications, powered by CSS3 and with scale transforms
+version: 1.01
+authors:
+  - Dimitar Christoff
 
+ requires:
 
+  - Core/Element.Event
+  - Core/Element.Style
+  - Core/Element.FX
+  - Core/Element.Morph
 
- */
+license: MIT-style license
+
+provides: [mooGrowl]
+...
+*/
 (function() {
 
     // enable morph on CSS3 properties mootools does not support currently.
