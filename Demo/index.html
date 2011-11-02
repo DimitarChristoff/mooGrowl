@@ -18,8 +18,30 @@
 <script type="text/javascript">
     window.addEvent("domready", function() {
         var growl = new mooGrowl();
-        growl.notify("this scrolls away", "test - hello there");
-        growl.notify("this stays on", "hello there", "Red");
+
+        growl.notify({
+            title: "this is a critical growl",
+            text: "hello there. this will also go away automatically",
+            className: "Red"
+        });
+
+        growl.notify({
+            title: "this scrolls away",
+            text: "test - hello there. mouseover to pause away action"
+        });
+
+        growl.notify({
+            title: "this is a sticky critical growl",
+            text: "hello there. this growl goes away on click only",
+            className: "Red",
+            sticky: true
+        });
+
+        growl.notify({
+            text: "This has no title, 2 second delay and goes away automatically",
+            delay: 2000
+        });
+
     });
 </script>
 </body>

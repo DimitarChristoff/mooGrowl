@@ -60,7 +60,26 @@
         Implements: [Options,Events,useCSS3Transforms],
 
         options: {
-            notificationDelay: 5000
+            notificationDelay: 5000,
+            styles: {
+                right: {
+                    position: "fixed",
+                    top: 50,
+                    right: 50,
+                    width: 250,
+                    background: "transparent",
+                    zIndex: 10000
+                },
+                left: {
+                    position: "fixed",
+                    top: 50,
+                    left: 50,
+                    width: 250,
+                    background: "transparent",
+                    zIndex: 10000
+                }
+            },
+            position: "right"
         },
 
         initialize: function(options) {
@@ -74,38 +93,60 @@
         setupContainer: function() {
 
             this.element = new Element("div#growlContainer", {
-                 styles: {
-                     position: "fixed",
-                     top: 50,
-                     right: 50,
-                     width: 250,
-                     background: "transparent",
-                     zIndex: 10000
-                 }
+                 styles: this.options.styles[this.options.position] || this.options.style.right
             }).inject(document.body);
 
+            var self = this, timer;
+            this.element.addEvents({
+                "mouseenter:relay(div.growlWrap)": function(e, el) {
+                    clearTimeout(timer);
+                    var msgObj = el.retrieve("msgObj");
+                    if (!msgObj.sticky) {
+                        clearTimeout(el.retrieve("timer"));
+                    }
+                },
+                "mouseleave:relay(div.growlWrap)": function(e, el) {
+                    timer = setTimeout(function() {
+                        var msgObj = el.retrieve("msgObj");
+                        if (!msgObj.sticky) {
+                            self.setHide(el);
+                        }
+                    }, 500);
+                }
+
+            });
         },
 
-        notify: function(title, text, type) {
-            if (title.length)
-                title = ["<strong>", title, "</strong>"].join("");
+        notify: function(msgObj) {
+            
+            msgObj.delay = msgObj.delay || 0;
+            (function() {
+                if (msgObj.title)
+                    msgObj.title = ["<strong>", msgObj.title, "</strong>"].join("");
 
-            var cssClass = type ? ("." + type) : '';
+                var msg = new Element("div.hide.growlWrap".substitute(msgObj), {
+                    html: "<div class='growlInner'><strong>{title}</strong>{text}</div>".substitute(msgObj)
+                }).inject(this.element).store("msgObj", msgObj);
 
-            var msg = new Element("div.hide.growlWrap" + cssClass, {
-                html: ["<div class='growlInner'>", title, text, "</div>"].join("")
-            }).inject(this.element);
+                if (msgObj.className) {
+                    msg.addClass(msgObj.className)
+                }
 
-            this.messages.push(msg);
-            this.show(msg, !!type);
-            if (!type) {
-                msg.store("timer", setTimeout(function() {
-                    this.hide(msg);
-                }.bind(this), this.options.notificationDelay));
-            }
-            else {
-                msg.addEvent("click", this.hide.bind(this, msg));
-            }
+                this.messages.push(msgObj);
+                this.show(msg, msgObj.sticky);
+                if (!msgObj.sticky) {
+                    this.setHide(msg);
+                }
+                else {
+                    msg.addEvent("click", this.hide.bind(this, msg));
+                }
+            }).delay(msgObj.delay, this);
+        },
+
+        setHide: function(msg) {
+            msg.store("timer", setTimeout(function() {
+                this.hide(msg);
+            }.bind(this), this.options.notificationDelay));
         },
 
         show: function(el, sticky) {
@@ -156,7 +197,7 @@
                 onComplete: function() {
                     this.removeEvents("complete");
                     self.fireEvent("close", this.element);
-                    self.messages.erase(this.element);
+                    this.element.destroy();
                 }
             }).morph(obj);
         },
