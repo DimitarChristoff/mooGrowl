@@ -1,6 +1,8 @@
 mooGrowl
 ========
 
+![screenshot](http://fragged.org/wp-content/uploads/Screen-Shot-2011-11-02-at-11.10.25.png)
+
 A MooTools 1.4 Growl-style notifications with CSS3 transitions. Default styling uses:
 
  - gradients
