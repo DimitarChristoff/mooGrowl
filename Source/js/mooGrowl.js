@@ -50,7 +50,7 @@ provides: [mooGrowl]
                 raw: ['transform', '-webkit-transform', '-moz-transform', '-o-transform', 'msTransform']
             };
 
-            // do some feature detection to detrmine what scale transform methods are available
+            // do some feature detection to determine what scale transform methods are available
             var testEl = new Element("div"),
                 self = this;
             this.scaleTransform = transforms.computed.some(function(el, index) {
@@ -106,7 +106,6 @@ provides: [mooGrowl]
         },
 
         setupContainer: function() {
-
             this.element = new Element("div#growlContainer", {
                  styles: this.options.styles[this.options.position] || this.options.style.right
             }).inject(document.body);
